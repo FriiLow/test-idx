@@ -21,7 +21,7 @@ class StaplingConfig
     /**
      * @var Collection<int, StaplingRule>
      */
-    #[ORM\OneToMany(targetEntity: StaplingRule::class, mappedBy: 'staplingConfig')]
+    #[ORM\OneToMany(targetEntity: StaplingRule::class, mappedBy: 'staplingConfig', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rules;
 
     public function __construct()

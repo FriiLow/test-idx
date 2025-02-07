@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\StaplingConfig;
 use App\Entity\StaplingRule;
+use App\Enum\MetadataEnum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,14 +17,10 @@ class StaplingRuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('glueOperator')
-            ->add('comparisonOperator')
-            ->add('value')
-            ->add('metadataEnum')
-            ->add('staplingConfig', EntityType::class, [
-                'class' => StaplingConfig::class,
-                'choice_label' => 'id',
-            ])
+            ->add('glueOperator', TextType::class)
+            ->add('comparisonOperator', TextType::class)
+            ->add('value', TextType::class)
+            ->add('metadataEnum', EnumType::class, ['class' => MetadataEnum::class])
         ;
     }
 
