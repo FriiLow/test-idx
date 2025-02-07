@@ -23,7 +23,7 @@ class StaplingRule
     #[ORM\Column(length: 255)]
     private ?string $value = null;
 
-    #[ORM\Column(type: MetadataEnum::class)]
+    #[ORM\Column(type: 'string', length: 255, enumType: MetadataEnum::class)]
     private MetadataEnum $metadataEnum;
 
     #[ORM\ManyToOne(inversedBy: 'rules')]
