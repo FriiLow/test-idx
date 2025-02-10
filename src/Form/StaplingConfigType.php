@@ -21,7 +21,7 @@ class StaplingConfigType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'data-form-collection-target' => 'rule',
-                    ]
+                    ],
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,

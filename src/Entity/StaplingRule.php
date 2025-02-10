@@ -24,7 +24,7 @@ class StaplingRule
     private ?string $value = null;
 
     #[ORM\Column(type: 'string', length: 255, enumType: MetadataEnum::class)]
-    private MetadataEnum $metadataEnum;
+    private MetadataEnum $metadata;
 
     #[ORM\ManyToOne(inversedBy: 'rules')]
     private ?StaplingConfig $staplingConfig = null;
@@ -70,14 +70,14 @@ class StaplingRule
         return $this;
     }
 
-    public function getMetadataEnum(): MetadataEnum
+    public function getMetadata(): MetadataEnum
     {
-        return $this->metadataEnum;
+        return $this->metadata;
     }
 
-    public function setMetadataEnum(MetadataEnum $metadataEnum): static
+    public function setMetadata(MetadataEnum $metadata): static
     {
-        $this->metadataEnum = $metadataEnum;
+        $this->metadata = $metadata;
 
         return $this;
     }

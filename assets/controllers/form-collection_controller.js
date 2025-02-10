@@ -13,10 +13,10 @@ export default class extends Controller {
 
     addCollectionElement(event)
     {
-        const item = document.createElement('li');
+        const item = document.createElement('div');
         item.innerHTML = this.prototypeValue.replace(/__name__/g, this.indexValue);
 
-        this.collectionContainerTarget.appendChild(item);
+        this.collectionContainerTarget.appendChild(item.firstElementChild);
 
         this.indexValue++;
     }
@@ -25,14 +25,24 @@ export default class extends Controller {
     {
         const target = event.target;
 
-        target.closest('li').remove();
+        const ruleContainer = target.closest('[data-form-collection-target="rule"]');
+        if (ruleContainer) {
+            ruleContainer.remove();
+        } else {
+            console.error("removeCollectionElement", "cannot find parent rule container");
+        }
     }
 
     ruleTargetConnected(element) {
         const removeButton = document.createElement('button');
+        removeButton.classList.add('btn', 'btn-danger');
         removeButton.innerHTML = 'X';
         removeButton.dataset.action = "click->form-collection#removeCollectionElement";
 
-        element.appendChild(removeButton);
+        const container = document.createElement('div');
+        container.classList.add('col-auto');
+        container.appendChild(removeButton);
+
+        element.appendChild(container);
     }
 }
