@@ -74,6 +74,7 @@ final class StaplingConfigController extends AbstractController
         return $this->render('stapling_config/edit.html.twig', [
             'stapling_config' => $staplingConfig,
             'form' => $form,
+
         ]);
     }
 

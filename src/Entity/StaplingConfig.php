@@ -18,6 +18,10 @@ class StaplingConfig
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?StaplingConfigContainer $container = null;
+
     /**
      * @var Collection<int, StaplingRule>
      */
@@ -74,5 +78,22 @@ class StaplingConfig
         }
 
         return $this;
+    }
+
+    public function getContainer(): ?StaplingConfigContainer
+    {
+        return $this->container;
+    }
+
+    public function setContainer(?StaplingConfigContainer $container): static
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    public function getConfig(): ?array
+    {
+        return $this->container ? $this->container->getConfig() : null;
     }
 }

@@ -29,6 +29,9 @@ class StaplingRule
     #[ORM\ManyToOne(inversedBy: 'rules')]
     private ?StaplingConfig $staplingConfig = null;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $extraData = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,22 @@ class StaplingRule
     {
         $this->staplingConfig = $staplingConfig;
 
+        return $this;
+    }
+
+    public function getStaplingConfigContainer(): ?StaplingConfigContainer
+    {
+        return $this->staplingConfig?->getContainer();
+    }
+
+    public function getExtraData(): array
+    {
+        return $this->extraData;
+    }
+
+    public function setExtraData(array $data): static
+    {
+        $this->extraData = $data;
         return $this;
     }
 }

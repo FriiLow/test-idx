@@ -7,6 +7,7 @@ use App\Entity\StaplingRule;
 use App\Enum\MetadataEnum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,12 +53,38 @@ class StaplingRuleType extends AbstractType
                 'empty_data' => '',
             ])
         ;
+
+        // Champs dynamiques
+        $config = $options['config'] ?? [];
+
+        foreach ($config as $name => $type) {
+            $fieldOptions = [
+                'mapped' => false, // tu gères ça manuellement après
+                'required' => false,
+                'label' => ucfirst($name),
+                'data' => null,
+            ];
+
+            switch ($type) {
+                case 'checkbox':
+                    $builder->add($name, CheckboxType::class, $fieldOptions);
+                    break;
+                case 'text':
+                    $builder->add($name, TextType::class, $fieldOptions);
+                    break;
+                case 'number':
+                    $builder->add($name, IntegerType::class, $fieldOptions);
+                    break;
+                // Ajoute d'autres types ici si besoin
+            }
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => StaplingRule::class,
+            'config' => [],
         ]);
     }
 }
